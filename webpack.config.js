@@ -11,8 +11,7 @@ module.exports = {
     publicPath: '',
     library: {
       name: 'GrepUtil',
-      type: 'umd',
-      export: 'default'
+      type: 'umd'
     },
     globalObject: 'this'
   },

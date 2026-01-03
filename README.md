@@ -236,8 +236,17 @@ cd NodeGrepUtil
 # 依存関係をインストール
 npm install
 
-# テストを実行
+# ユニットテストを実行
 npm run test
+
+# 統合テストを実行（ビルド後のGrepUtil.bundle.jsのテスト）
+npm run test:integration
+
+# すべてのテストを実行
+npm run test:all
+
+# カバレッジ付きでテストを実行
+npm run test:ci
 
 # ビルドを実行（dist/GrepUtil.bundle.js を生成）
 npm run build
@@ -246,10 +255,67 @@ npm run build
 #### 開発ワークフロー
 
 1. `src/RegExpArray.js` または `src/BufferPatternMatcher.js` でコードを修正
-2. `tests/unit/RegExpArray.spec.js` でテストを追加・更新
-3. `npm run test` でテスト実行
+2. `tests/unit/RegExpArray.spec.js` でユニットテストを追加・更新
+3. `npm run test` でユニットテストを実行
+4. `npm run build` でビルドを実行
+5. `npm run test:integration` で統合テストを実行（バンドル後のAPIテスト）
+
+## テスト構成
+
+本プロジェクトでは、以下の3種類のテストを実装しています。
+
+### ユニットテスト (Unit Tests)
+
+- **場所**: `tests/unit/`
+- **設定**: `jest.unit.config.js`
+- **実行**: `npm run test`
+- **対象**: TypeScriptソースコード（`src/*.ts`）を直接テスト
+- **目的**: クラスの各メソッドの動作を個別に検証
+
+```powershell
+# ユニットテストのみ実行
+npm run test
+
+# カバレッジ付きで実行
+npm run test:ci
+```
+
+### 統合テスト (Integration Tests)
+
+- **場所**: `tests/integration/`
+- **設定**: `jest.integration.config.js`
+- **実行**: `npm run test:integration`
+- **対象**: ビルド後の`dist/GrepUtil.bundle.js`（UMDバンドル）
+- **目的**: パッケージングされた公開APIの動作を検証
+
+```powershell
+# 統合テストのみ実行
+npm run test:integration
+```
+
+**統合テストの特徴**:
+- バンドル後のJavaScriptファイルをrequireで読み込んでテスト
+- 実際の利用者が使用する形式（UMD）での動作を保証
+- RegExpArrayとBufferPatternMatcherの両方の公開APIをカバー
+- エッジケース、異常系、ファイルシグネチャ判定などの実践的なケースを含む
+
+### 全テスト実行
+
+```powershell
+# ユニットテスト → 統合テストの順で実行
+npm run test:all
+```
+
+## 開発フロー
+
+推奨される開発フローは以下の通りです：
+
+1. `src/RegExpArray.ts` または `src/BufferPatternMatcher.ts` でコードを修正
+2. `tests/unit/` 配下でユニットテストを追加・更新
+3. `npm run test` でユニットテストを実行
 4. `npm run build` でUMDバンドルをビルド
-5. コミット＆プッシュ
+5. `npm run test:integration` で統合テストを実行
+6. `npm run test:all` で全テストを実行して最終確認
 
 ## 技術的な詳細
 
