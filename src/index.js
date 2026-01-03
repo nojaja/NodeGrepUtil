@@ -1,3 +1,4 @@
-import { RegExpUtil } from './RegExpUtil.js';
+import { RegExpArray } from './RegExpArray.js';
+import { BufferPatternMatcher } from './BufferPatternMatcher.js';
 
-export { RegExpUtil };
+export { RegExpArray, BufferPatternMatcher };
