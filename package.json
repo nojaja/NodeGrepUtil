@@ -1,8 +1,20 @@
 {
   "name": "@nojaja/greputil",
-  "version": "1.0.1",
-  "description": "",
+  "version": "1.0.2",
+  "description": "複数の正規表現パターンを効率的に扱うためのJavaScriptユーティリティライブラリ。文字列の一括パターンマッチングとバッファパターンマッチング機能を提供します。",
   "main": "./dist/GrepUtil.bundle.js",
+  "keywords": [
+    "grep",
+    "regex",
+    "regexp",
+    "pattern-matching",
+    "buffer",
+    "search",
+    "text-processing",
+    "utility",
+    "multiple-patterns",
+    "string-matching"
+  ],
   "scripts": {
     "test": "jest --config jest.unit.config.js",
     "test:ci": "jest --config jest.unit.config.js --coverage",
@@ -21,6 +33,9 @@
     "url": "https://github.com/nojaja/NodeGrepUtil/issues"
   },
   "homepage": "https://github.com/nojaja/NodeGrepUtil#readme",
+  "files": [
+    "dist"
+  ],
   "devDependencies": {
     "@types/jest": "^29.5.2",
     "@types/node": "^20.0.0",
