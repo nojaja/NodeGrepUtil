@@ -1,6 +1,6 @@
 {
   "name": "@nojaja/greputil",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "複数の正規表現パターンを効率的に扱うためのJavaScriptユーティリティライブラリ。文字列の一括パターンマッチングとバッファパターンマッチング機能を提供します。",
   "main": "./dist/GrepUtil.bundle.js",
   "keywords": [
@@ -20,7 +20,7 @@
     "test:ci": "jest --config jest.unit.config.js --coverage",
     "test:integration": "jest --config jest.integration.config.js",
     "test:all": "jest --config jest.unit.config.js ; jest --config jest.integration.config.js",
-    "build": "webpack",
+    "build": "webpack && tsc --emitDeclarationOnly",
     "lint": "eslint .",
     "depcruise": "depcruise --config .dependency-cruiser.js src",
     "docs": "typedoc"
