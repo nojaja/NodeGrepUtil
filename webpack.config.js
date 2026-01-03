@@ -1,29 +1,32 @@
-const src = __dirname + "/src"
-const dist = __dirname + "/dist"
-const webpack = require('webpack')
+const path = require('path');
 
 module.exports = {
-  mode: 'development',
-  devtool: 'inline-source-map',
+  mode: 'production',
+  devtool: 'source-map',
   target: 'node',
-  devServer: {
-    contentBase: dist
-  },
-  context: src,
-  entry: {
-    main: './index.js',
-  },
+  entry: './src/index.ts',
   output: {
     filename: 'GrepUtil.bundle.js',
-    sourceMapFilename: '[name].map',
-    path: dist,
-    publicPath:"",
-    libraryExport: 'default',
-    libraryTarget: 'umd'
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: '',
+    library: {
+      name: 'GrepUtil',
+      type: 'umd',
+      export: 'default'
+    },
+    globalObject: 'this'
   },
   module: {
+    rules: [
+      {
+        test: /\.ts$/,
+        use: 'ts-loader',
+        exclude: /node_modules/
+      }
+    ]
   },
   resolve: {
+    extensions: ['.ts', '.js'],
     modules: ['node_modules']
-  },
-}
+  }
+};
