@@ -1,6 +1,6 @@
 {
   "name": "@nojaja/greputil",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "複数の正規表現パターンを効率的に扱うためのJavaScriptユーティリティライブラリ。文字列の一括パターンマッチングとバッファパターンマッチング機能を提供します。",
   "main": "./dist/GrepUtil.bundle.js",
   "keywords": [

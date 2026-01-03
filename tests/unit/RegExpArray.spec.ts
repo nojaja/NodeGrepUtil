@@ -74,11 +74,12 @@ describe('RegExpArray', () => {
   });
 
   describe('test', () => {
-    it('グローバルフラグ付き正規表現でマッチ判定できること', () => {
+    it('グローバルフラグ付き正規表現でマッチ判定できること（ステートレス動作）', () => {
       const regExpArray = new RegExpArray([/t(e)(st(\d?))/g]);
+      // test() はステートレスな動作をするため、複数回呼び出しても同じ結果
       expect(regExpArray.test('test1test2')).toBe(true);
       expect(regExpArray.test('test1test2')).toBe(true);
-      expect(regExpArray.test('test1test2')).toBe(false);
+      expect(regExpArray.test('test1test2')).toBe(true);
     });
 
     it('マッチする場合trueを返すこと', () => {

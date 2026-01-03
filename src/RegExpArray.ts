@@ -110,16 +110,25 @@ export class RegExpArray {
      *
      * 処理概要:
      * いずれかの正規表現がマッチすればtrueを返す。
-     * グローバルフラグ使用時はステートフルに動作する。
+     * グローバルフラグを持つ正規表現でも、複数回呼び出しで一貫した結果を返すよう
+     * lastIndex をリセットしてステートレスに動作させる。
      *
      * 実装理由:
-     * 真偽値のみが必要な場合に、マッチ結果の詳細を取得するオーバーヘッドを避けるため。
-     * firstMatchの結果を利用して効率的に判定する。
+     * 真偽値のみが必要な場合、グローバルフラグのステートフル動作は不要で、
+     * むしろ複数回呼び出し時の予期しない動作を招く。
+     * filterやsome()との組み合わせなど、複数回呼び出しの用途が多いため。
      * @param string - テスト対象の文字列
      * @returns マッチする場合true、しない場合false
      */
     test(string: string): boolean {
-        return this.firstMatch(string) !== null;
+        // グローバルフラグの副作用を避けるため、各パターンの lastIndex をリセット
+        for (const regexp of this.regExpInstanceList) {
+            regexp.lastIndex = 0;
+            if (regexp.test(string)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
